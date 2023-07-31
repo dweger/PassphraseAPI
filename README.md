@@ -1,14 +1,38 @@
 # PassphraseAPI
 Simple API built using ChatGPT that generates secure passphrases.
 
-There are two different implementations.
-
 ## The first is a Linux implementation.
 This was deployed to an Ubuntu Server instance running on a Raspberry Pi.
 
 ## The second is a deployment to Azure.
 This deployment uses Azure Functions and a static web site hosted in a Storage Account.
 
+
+### Using the API
+You can access the API via simple query via IP or URL
+
+This will generate 5 passphrases by default.
+
+> {URL}/api/generatepassphrase
+
+
+
+You can specify how many passphrases like this: 
+
+10 is the maximum number of passphrases that can be generated at one time.
+
+> {URL}/api/generatepassphrase?numPassphrases=10
+
+
+For the local Raspberry Pi (Ubuntu server) implementation, the URL will look something like this: 
+
+> http://192.168.10.42/api/generatepassphrase
+
+> http://192.168.10.42/api/generatepassphrase?numPassphrases=10
+
+To query using Powershell:
+
+> Invoke-WebRequest http://192.168.10.42/api/generatepassphrase
 
 ### Secure Passphrase Generator ChatGPT links
 
