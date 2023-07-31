@@ -3,6 +3,9 @@ const path = require("path");
 
 module.exports = async function (context, req) {
   const numPassphrases = parseInt(req.query.numPassphrases) || 5;
+  const numWords = parseInt(req.query.numWords) || 3;
+  const lengthNumbers = parseInt(req.query.lengthNumbers) || 2;
+
   const passphrases = [];
   const dictionaryPath = path.join(context.executionContext.functionDirectory, "dictionary.txt");
 
@@ -12,8 +15,17 @@ module.exports = async function (context, req) {
     return words[randomIndex].trim(); // Remove any leading/trailing spaces
   }
 
+  function getRandomNumber(length) {
+    const maxNumber = Math.pow(10, length) - 1;
+    return String(Math.floor(Math.random() * maxNumber)).padStart(length, "0");
+  }
+
   for (let i = 0; i < numPassphrases; i++) {
-    const passphrase = `${getRandomWord()}${Math.floor(Math.random() * 100)}${getRandomWord()}${Math.floor(Math.random() * 100)}${getRandomWord()}`;
+    const words = [];
+    for (let j = 0; j < numWords; j++) {
+      words.push(getRandomWord());
+    }
+    const passphrase = words.join("") + getRandomNumber(lengthNumbers);
     passphrases.push(passphrase);
   }
 
